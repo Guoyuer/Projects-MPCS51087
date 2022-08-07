@@ -1,0 +1,13 @@
+#!/bin/bash
+#SBATCH --job-name=hybrid_advection
+#SBATCH --output=first_order.out
+#SBATCH --nodes=16
+#SBATCH --time=02:00:00
+#SBATCH --cpus-per-task=32
+#SBATCH --partition=caslake
+#SBATCH --ntasks-per-node=1
+
+
+module load openmpi
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+mpirun --bind-to none ./first_order 800 20000 1.0 1.0e6 5.0e-7 2.85e-7 1000
